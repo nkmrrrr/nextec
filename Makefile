@@ -7,6 +7,13 @@ up:
 down:
 	docker-compose down
 
+# bash にしたい
+exec-api:
+	docker-compose exec api sh 
+
+exec-db:
+	docker-compose exec db sh
+
 laravel:
 	docker-compose exec api composer create-project laravel/laravel .
 

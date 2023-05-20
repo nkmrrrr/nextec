@@ -1,8 +1,9 @@
 import link from "next/link";
 import * as z from "zod";
 // import { useLogin } from "@/features/auth/hooks";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/lib/auth";
 
 const schema = z.object({
   email: z.string().min(1, "Required"),
@@ -22,13 +23,25 @@ type LoginFormProps = {
 export default function LoginForm() {
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm<LoginValues>({ resolver: zodResolver(schema) });
+
+  const {isLoading, isError, mutate, error} = useLogin();
+  const onSubmit: SubmitHandler<LoginValues> = (data, event) => {
+    event?.preventDefault();
+    console.log()
+    mutate(data);
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="email">Email</label>
         <input {...register("email")} />
+        <label htmlFor="password">Password</label>
         <input {...register("password")} />
+        <button type="submit">ログイン</button>
       </form>
     </div>
   );
