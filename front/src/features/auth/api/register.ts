@@ -6,8 +6,7 @@ export type RegisterCredentialsDTO = {
   name: string;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  passwordConfirm: string;
 };
 
 export const registerWithEmailAndPassword = (

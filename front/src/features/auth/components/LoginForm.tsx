@@ -16,9 +16,9 @@ type LoginValues = {
   password: string;
 };
 
-type LoginFormProps = {
-  onSuccess: () => void;
-};
+// type LoginFormProps = {
+//   onSuccess: () => void;
+// };
 
 export default function LoginForm() {
   const {

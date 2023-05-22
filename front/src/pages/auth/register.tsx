@@ -1,10 +1,6 @@
-import React from 'react'
+import React from "react";
+import RegisterForm from "@/features/auth/components/RegisterForm";
 
 export default function register() {
-  return (
-    <div>register</div>
-  )
+  return <RegisterForm />;
 }
-
-  
-
