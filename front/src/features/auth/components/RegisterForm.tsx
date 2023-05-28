@@ -8,7 +8,7 @@ const schema = z
   .object({
     name: z.string().min(1, "Required"),
     email: z.string().email("メールアドレスの形式が正しくありません"), // TODO:正規表現対応
-    password: z.string().min(1, "パスワードを入力してください"),
+    password: z.string().min(8, "8文字以上で入力してください"),
     passwordConfirm: z.string().min(1, "確認用のパスワードを入力してください"),
   })
   .superRefine(({ password, passwordConfirm }, ctx) => {
@@ -44,23 +44,19 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* name */}
+
       <label htmlFor="name">Name</label>
       <input {...register("name")} />
       {errors.name?.message && <p>{errors.name?.message}</p>}
 
-      {/* email */}
       <label htmlFor="email">Email</label>
       <input {...register("email")} />
       {errors.email?.message && <p>{errors.email?.message}</p>}
 
-      {/* password */}
       <label htmlFor="password">Password</label>
       <input {...register("password")} />
       {errors.password?.message && <p>{errors.password?.message}</p>}
-      {console.log(errors)}
 
-      {/* passwordConfirm */}
       <label htmlFor="password_confirmation">Confirm Password</label>
       <input {...register("passwordConfirm")} />
       {errors.passwordConfirm?.message && (
