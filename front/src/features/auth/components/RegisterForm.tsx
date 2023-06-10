@@ -9,12 +9,12 @@ const schema = z
     name: z.string().min(1, "Required"),
     email: z.string().email("メールアドレスの形式が正しくありません"), // TODO:正規表現対応
     password: z.string().min(8, "8文字以上で入力してください"),
-    passwordConfirm: z.string().min(1, "確認用のパスワードを入力してください"),
+    password_confirmation: z.string().min(1, "確認用のパスワードを入力してください"),
   })
-  .superRefine(({ password, passwordConfirm }, ctx) => {
-    if (password !== passwordConfirm) {
+  .superRefine(({ password, password_confirmation }, ctx) => {
+    if (password !== password_confirmation) {
       ctx.addIssue({
-        path: ["passwordConfirm"],
+        path: ["password_confimation"],
         code: "custom",
         message: "パスワードが一致しません",
       });
@@ -25,7 +25,7 @@ type RegisterValues = {
   name: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  password_confirmation: string;
 };
 
 export default function RegisterForm() {
@@ -58,9 +58,9 @@ export default function RegisterForm() {
       {errors.password?.message && <p>{errors.password?.message}</p>}
 
       <label htmlFor="password_confirmation">Confirm Password</label>
-      <input {...register("passwordConfirm")} />
-      {errors.passwordConfirm?.message && (
-        <p>{errors.passwordConfirm?.message}</p>
+      <input {...register("password_confirmation")} />
+      {errors.password_confirmation?.message && (
+        <p>{errors.password_confirmation?.message}</p>
       )}
 
       <button type="submit">登録</button>
