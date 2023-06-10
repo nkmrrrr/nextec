@@ -1,12 +1,11 @@
-import { getUser } from "@/features/auth/api/getUser";
 import {
+  getUser,
+  verifyCsrf,
   loginWithEmailAndPassword,
-  type LoginCredentialsDTO,
-} from "@/features/auth/api/login";
-import {
-  RegisterCredentialsDTO,
   registerWithEmailAndPassword,
-} from "@/features/auth/api/register";
+  type RegisterCredentialsDTO,
+  type LoginCredentialsDTO,
+} from "@/features/auth/api";
 import { configureAuth } from "react-query-auth";
 
 async function userFn() {
@@ -20,13 +19,13 @@ async function userFn() {
 }
 
 async function loginFn(credentials: LoginCredentialsDTO) {
-  // ここに csrf 入れるお
   await loginWithEmailAndPassword(credentials);
   const user = await getUser();
   return user;
 }
 
 async function registerFn(creadentials: RegisterCredentialsDTO) {
+  await verifyCsrf();
   await registerWithEmailAndPassword(creadentials);
   const user = await getUser();
   return user;
