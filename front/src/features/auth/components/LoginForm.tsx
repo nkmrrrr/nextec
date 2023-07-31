@@ -26,11 +26,11 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginValues>({ resolver: zodResolver(schema) });
-
+  
   const {isLoading, isError, mutate, error} = useLogin();
   const onSubmit: SubmitHandler<LoginValues> = (data, event) => {
     event?.preventDefault();
-    console.log()
+    console.log(data, event);
     mutate(data);
   };
 
